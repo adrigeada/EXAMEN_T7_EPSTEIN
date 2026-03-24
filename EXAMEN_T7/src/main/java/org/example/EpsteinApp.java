@@ -17,6 +17,7 @@ public class EpsteinApp {
 
        estadistica.verPoliticos();
        estadistica.informeJuzgado();
+       estadistica.verRanking();
 
 
     }
