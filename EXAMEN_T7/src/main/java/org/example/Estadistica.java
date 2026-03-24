@@ -1,22 +1,40 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Estadistica implements Informes{
 
-    private Map<String,String> estadisticas;
+    private Map<Famoso,Integer> estadisticas = new HashMap<>();
 
-    public Estadistica(Set<Famoso> famoso){
-        estadisticas = new HashMap<>();
+    public Estadistica(ArrayList<Famoso> lista){
+        estadisticas = getEstadisticas(lista);
     }
 
-    public Map<String, String> getEstadisticas() {
+
+    public Map<Famoso, Integer> getEstadisticas(ArrayList<Famoso> lista) {
+
+        for (Famoso famoso : lista){
+
+            if (estadisticas.containsKey(famoso)){
+                estadisticas.put(famoso,estadisticas.get(famoso)+1);
+            }else {
+                estadisticas.put(famoso,1);
+            }
+
+        }
+
+        System.out.println("\nGenerando estadisticas...");
+
+        for (Map.Entry<Famoso,Integer> mapita : estadisticas.entrySet()){
+
+            System.out.println("-- "+mapita.getKey().getNombre()+": "+mapita.getValue()+" visitas");
+
+        }
+
         return estadisticas;
     }
 
-    public void setEstadisticas(Map<String, String> estadisticas) {
+    public void setEstadisticas(Map<Famoso, Integer> estadisticas) {
         this.estadisticas = estadisticas;
     }
 
@@ -29,16 +47,35 @@ public class Estadistica implements Informes{
 
     @Override
     public void verPoliticos() {
+        System.out.println("\nIdentificando a la clase política...");
+
+        for (Map.Entry<Famoso,Integer> mapita : estadisticas.entrySet()){
+
+            if (mapita.getKey().getProfesion().equalsIgnoreCase("Político")){
+
+                System.out.println("-- "+mapita.getKey().getNombre()+" representando a "+mapita.getKey().getPais());
+
+            }
+        }
 
     }
 
     @Override
     public void informeJuzgado() {
+        System.out.println("\nListado ordenado por paises");
+
+        Set<Famoso> lista = new TreeSet<>(estadisticas.keySet());
+
+        for (Famoso famoso : lista){
+            System.out.println("#"+famoso.getPais()+" - "+famoso.getNombre());
+        }
+
 
     }
 
     @Override
     public void verRanking() {
 
+        
     }
 }
