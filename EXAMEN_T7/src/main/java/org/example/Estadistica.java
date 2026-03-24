@@ -75,6 +75,7 @@ public class Estadistica implements Informes{
 
     @Override
     public void verRanking() {
+        int contador = 0;
         System.out.println("\nRanking (famosos con mas visitas):");
         List<Map.Entry<Famoso,Integer>> listaMapa = new ArrayList<>(estadisticas.entrySet());
 
@@ -83,7 +84,8 @@ public class Estadistica implements Informes{
         for (Map.Entry<Famoso,Integer> mapita : listaMapa){
 
             if (mapita.getValue()>1){
-                System.out.println(mapita.getKey().getNombre()+ " ("+mapita.getValue()+" visitas)");
+                contador++;
+                System.out.println("#"+contador+" "+mapita.getKey().getNombre()+ " ("+mapita.getValue()+" visitas)");
             }
 
         }
